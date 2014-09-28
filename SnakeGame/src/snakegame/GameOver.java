@@ -31,18 +31,18 @@ public class GameOver extends GameObject{
     @Override
     public void initResources() {
         gameOver = new Block(getImage("resources/Retry.png"),168,281);
-        yes = new Block(getImage("resources/Yes.png"),236,337);
-        no = new Block(getImage("resources/No.png"),333,337);
-        arrow = new Block(getImage("resources/arrow.png"),190,337);
+        yes = new Block(getImage("resources/Yes.png"),208,337);
+        no = new Block(getImage("resources/No.png"),361,337);
+        arrow = new Block(getImage("resources/arrow.png"),162,337);
     }
 
     @Override
     public void update(long l) {
         if(keyPressed(KeyEvent.VK_LEFT) && position != 1){
-            arrow.setX(arrow.getX()-102);
+            arrow.setX(arrow.getX()-148);
             position = 1;
         }else if(keyPressed(KeyEvent.VK_RIGHT) && position != 0){
-            arrow.setX(arrow.getX()+102);
+            arrow.setX(arrow.getX()+148);
             position = 0;
         }else if(keyPressed(KeyEvent.VK_ENTER)){
             switch(position){
