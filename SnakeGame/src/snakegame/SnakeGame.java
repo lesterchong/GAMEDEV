@@ -4,24 +4,38 @@
  */
 package snakegame;
 
+import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameLoader;
+import com.golden.gamedev.GameObject;
 import java.awt.Dimension;
 
 /**
  *
  * @author Administrator
  */
-public class SnakeGame {
+public class SnakeGame extends GameEngine{
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GameFrame gf = new GameFrame();
+        
         GameLoader game = new GameLoader();
         
-        game.setup(gf,new Dimension(640,640),false);
+        game.setup(new SnakeGame(), new Dimension(640,640),false);
         game.start();
         // TODO code application logic here
+    }
+
+    @Override
+    public GameObject getGame(int i) {
+        switch(i){
+            case 0: return new MainMenu(this);
+            case 1: return new GameFrame(this);
+            case 2: return new AboutFrame(this);
+            case 3: return new GameOver(this);
+            default: ;    
+        }
+        return null;
     }
 }

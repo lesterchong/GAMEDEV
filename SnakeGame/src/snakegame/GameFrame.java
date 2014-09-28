@@ -4,19 +4,18 @@
  */
 package snakegame;
 
-import com.golden.gamedev.Game;
+import com.golden.gamedev.GameEngine;
+import com.golden.gamedev.GameObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  *
  * @author Administrator
  */
-public class GameFrame extends Game
-{
+public class GameFrame extends GameObject{
     Block Food;
     LinkedList<Block> Snake = new LinkedList<>();
     double snakeX, snakeY; // snake
@@ -25,6 +24,10 @@ public class GameFrame extends Game
     int snakeDirection; // snake direction
     
     final double dimension = 16; // 16 x 16
+
+    public GameFrame(GameEngine ge) {
+        super(ge);
+    }
     @Override
     public void initResources() {
         snakeX = 10;
@@ -34,15 +37,15 @@ public class GameFrame extends Game
         foodX = 20;
         foodY = 20;
         
-        Snake.add(new Block(getImage("snakeblock.png"),snakeX*dimension,snakeY*dimension));
-        Food = new Block(getImage("foodblock.png"),foodX*dimension,foodY*dimension);
+        Snake.add(new Block(getImage("resources/snakeblock.png"),snakeX*dimension,snakeY*dimension));
+        Food = new Block(getImage("resources/foodblock.png"),foodX*dimension,foodY*dimension);
     }
     
     @Override
     public void update(long l) {
         if (Math.abs(Snake.get(0).getX() - Food.getX()) < dimension && Math.abs(Snake.get(0).getY() - Food.getY()) < dimension){
             resetFood();
-            Snake.addLast(new Block(getImage("snakeblock.png"),Snake.getFirst().getX()*dimension,Snake.getFirst().getY()*dimension));
+            Snake.addLast(new Block(getImage("resources/snakeblock.png"),Snake.getFirst().getX()*dimension,Snake.getFirst().getY()*dimension));
         }
         
         if(checkYBorder() && checkXBorder()){
@@ -50,6 +53,9 @@ public class GameFrame extends Game
             moveSnake();
             Snake.get(0).update(l);
             Food.update(l);
+        }else{
+            parent.nextGameID=3;
+            finish();
         }
         for(int ctr=0; ctr<Snake.size(); ctr++){
             Snake.get(ctr).update(l);
@@ -131,8 +137,4 @@ public class GameFrame extends Game
         return false;
     }
     
-    public GameFrame()
-    {
-        
-    }
 }
