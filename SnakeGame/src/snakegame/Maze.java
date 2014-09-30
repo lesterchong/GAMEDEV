@@ -115,12 +115,22 @@ public class Maze extends GameObject{
     }
     
     public void resetFood(){
-        int newX, newY;
+        int newX, newY, check;
+        
+
+        do{
+        check =0;
         newX = ((int)(Math.random() * 100)) % 40;
         newY = ((int)(Math.random() * 100)) % 40;
         
         Food.setX((double)newX * dimension);
         Food.setY((double)newY * dimension);
+
+        for(int ctr=0; ctr< Obstacle.size();ctr++){
+            if((Food.getX() >= Obstacle.get(ctr).getX() && Food.getX() <= (Obstacle.get(ctr).getX() + Obstacle.get(ctr).getWidth())) && (Food.getY() >= Obstacle.get(ctr).getY() && Food.getY() <= (Obstacle.get(ctr).getY() + Obstacle.get(ctr).getHeight())))
+                check++;
+        }
+        }while(check > 0);
     }
     
     //returns true if snake is at allowed space
@@ -147,7 +157,7 @@ public class Maze extends GameObject{
         return true;
     }
     
-    public boolean checkMazeCollision(){
+    /*public boolean checkMazeCollision(){
         
         for(int ctr=0; ctr< Obstacle.size(); ctr++){
             if((Snake.getFirst().getX()>= Obstacle.get(ctr).getX() 
@@ -157,6 +167,16 @@ public class Maze extends GameObject{
                 
                     return false;   
         }
+        return true;
+    }*/
+    
+    public boolean checkMazeCollision(){
+
+        for(int ctr=0; ctr< Obstacle.size(); ctr++){
+            if((Snake.getFirst().getX() >= Obstacle.get(ctr).getX() && Snake.getFirst().getX() <= (Obstacle.get(ctr).getX() + Obstacle.get(ctr).getWidth())) && (Snake.getFirst().getY() >= Obstacle.get(ctr).getY() && Snake.getFirst().getY() <= (Obstacle.get(ctr).getY() + Obstacle.get(ctr).getHeight())))
+                return false;
+        }
+
         return true;
     }
     
