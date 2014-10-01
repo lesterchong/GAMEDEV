@@ -54,7 +54,7 @@ public class GameFrame extends GameObject{
             Snake.get(0).update(l);
             Food.update(l);
         }else{
-            parent.nextGameID=3;
+            parent.nextGameID=5;
             finish();
         }
         for(int ctr=0; ctr<Snake.size(); ctr++){

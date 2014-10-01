@@ -32,8 +32,10 @@ public class SnakeGame extends GameEngine{
         switch(i){
             case 0: return new MainMenu(this);
             case 1: return new GameFrame(this);
-            case 2: return new AboutFrame(this);
-            case 3: return new GameOver(this);
+            case 2: return new Hard(this);
+            case 3: return new Maze(this);
+            case 4: return new Maze1(this);
+            case 5: return new GameOver(this);
             default: ;    
         }
         return null;

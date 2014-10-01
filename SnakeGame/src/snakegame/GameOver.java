@@ -19,8 +19,7 @@ import java.awt.event.KeyEvent;
 public class GameOver extends GameObject{
 
     private Block gameOver;
-    private Block yes;
-    private Block no;
+    private Block mainmenu;
     private Block arrow;
     private int position = 1;
     
@@ -30,29 +29,17 @@ public class GameOver extends GameObject{
 
     @Override
     public void initResources() {
-        gameOver = new Block(getImage("resources/Retry.png"),168,281);
-        yes = new Block(getImage("resources/Yes.png"),208,337);
-        no = new Block(getImage("resources/No.png"),361,337);
-        arrow = new Block(getImage("resources/arrow.png"),162,337);
+        gameOver = new Block(getImage("resources/GameOver.png"),168,281);
+        mainmenu = new Block(getImage("resources/MainMenu.png"),168,337);
+        arrow = new Block(getImage("resources/arrow.png"),136,340);
     }
 
     @Override
     public void update(long l) {
-        if(keyPressed(KeyEvent.VK_LEFT) && position != 1){
-            arrow.setX(arrow.getX()-148);
-            position = 1;
-        }else if(keyPressed(KeyEvent.VK_RIGHT) && position != 0){
-            arrow.setX(arrow.getX()+148);
-            position = 0;
-        }else if(keyPressed(KeyEvent.VK_ENTER)){
-            switch(position){
-                case 0: parent.nextGameID = 0; finish(); break;
-                case 1: parent.nextGameID = 1; finish(); break;
-                default: break;    
-            }
+        if(keyPressed(KeyEvent.VK_ENTER)){
+            parent.nextGameID = 0;
+            finish();
         }
-        
-        arrow.update(l);
     }
 
     @Override
@@ -61,9 +48,9 @@ public class GameOver extends GameObject{
         gd.fillRect(0, 0, getWidth(), getHeight());
         
         gameOver.render(gd);
+        mainmenu.render(gd);
         arrow.render(gd);
-        yes.render(gd);
-        no.render(gd);
+        
     }
     
 }

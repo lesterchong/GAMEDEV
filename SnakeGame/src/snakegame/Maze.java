@@ -27,7 +27,7 @@ public class Maze extends GameObject{
     public void initResources() {
         snakeX = 10;
         snakeY = 12;
-        snakeDirection = 3;
+        snakeDirection = 2;
         
         foodX = 20;
         foodY = 20;
@@ -58,7 +58,7 @@ public class Maze extends GameObject{
             Snake.get(0).update(l);
             Food.update(l);
         }else{
-            parent.nextGameID=3;
+            parent.nextGameID=5;
             finish();
         }
         for(int ctr=0; ctr<Snake.size(); ctr++){
