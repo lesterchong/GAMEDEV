@@ -18,12 +18,14 @@ import snakegame.Block;
  */
 public class MainGame extends GameObject{
 
+    private int spawnValue;
     private Block main;
-    int spawnValue;
-    Block up;
-    Block down;
-    Block left;
-    Block right;
+    private Block up;
+    private Block down;
+    private Block left;
+    private Block right;
+    private double dimension;
+    
     
     public MainGame(GameEngine ge) {
         super(ge);
@@ -31,15 +33,21 @@ public class MainGame extends GameObject{
 
     @Override
     public void initResources() {
-        up = new Block(getImage("resources/Up.png"),245,740);;
-        down = new Block(getImage("resources/Down.png"),270,-100);;
-        right = new Block(getImage("resources/Right.png"),-100,245);;
-        left = new Block(getImage("resources/Left.png"),740,245);;
+        dimension = 100;
+        
+        up = new Block(getImage("resources/Up.png"),270,740);
+        down = new Block(getImage("resources/Down.png"),270,-100);
+        right = new Block(getImage("resources/Right.png"),-100,270);
+        left = new Block(getImage("resources/Left.png"),740,270);
         main = new Block(getImage("resources/Main.png"),245,245);
     }
 
     @Override
     public void update(long l) {
+        if(System.currentTimeMillis() % 20 == 0) //Determines how fast the arrows show
+            spawnValue = (int)(Math.random()*4);
+        
+        movement(spawnValue);
         
         down.update(l);
         up.update(l);
@@ -54,44 +62,21 @@ public class MainGame extends GameObject{
         gd.fillRect(0, 0, getWidth(), getHeight());
         
         main.render(gd);
-        spawnValue = (int)(Math.random()*4);
-        
-        if(spawnValue == 0){
-            down.render(gd);
-            Movement(spawnValue);
-        }
-        else if(spawnValue == 1){
-            up.render(gd);
-            Movement(spawnValue);
-        }
-        else if(spawnValue == 2){
-            left.render(gd);
-            Movement(spawnValue);
-        }
-        else if(spawnValue == 3){
-            right.render(gd);
-            Movement(spawnValue);
-        }
+        up.render(gd);
+        down.render(gd);
+        left.render(gd);
+        right.render(gd);
     }
     
-    public void Movement(int num){
-        if(num ==0){
-            down.setY(down.getY() + 5);
+    public void movement(int num){
+        if(num == 0 && down.getY()!= 640){
+            down.setY(down.getY() + .05*dimension);
+        }else if(num ==1 && up.getY()!= 0){
+            up.setY(up.getY() - .05*dimension);
+        }else if(num ==2 && left.getX()!= 0){
+            left.setX(left.getX() - .05*dimension);
+        }else if(num ==3 && right.getX()!= 640){
+            right.setY(right.getX() + .05*dimension);
         }
-        else if(num ==1){
-            up.setY(up.getY() - 5);
-        }
-        else if(num ==2){
-            left.setY(left.getX() - 5);
-        }
-        else if(num ==3){
-            right.setY(right.getY() + 5);
-        }
-        
-    }
-    
-    public void Spawn(){
-        
-    }
-    
+    }    
 }
