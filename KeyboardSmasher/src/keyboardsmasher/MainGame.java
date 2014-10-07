@@ -10,7 +10,9 @@ import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 import snakegame.Block;
 
 /**
@@ -26,6 +28,7 @@ public class MainGame extends GameObject{
     private ArrayList <Block> left = new ArrayList<>();
     private ArrayList <Block> right = new ArrayList<>();
     private double dimension;
+    private Random rand;
     
     
     public MainGame(GameEngine ge) {
@@ -36,13 +39,12 @@ public class MainGame extends GameObject{
     public void initResources() {
         dimension = 100;
         main = new Block(getImage("resources/Main.png"),245,245);
+        rand = new Random();
     }
 
     @Override
     public void update(long l) {
-        //if(System.currentTimeMillis() % 20 == 0) //Determines how fast the arrows show
-            Generate();
-        
+        Generate();
         Movement();
         
     }
@@ -69,22 +71,18 @@ public class MainGame extends GameObject{
     }
     
     public void Generate(){
-        spawnValue = (int)(Math.random()*4);
+        if(System.currentTimeMillis() % 23 == 3){ //Legit timer. Needs a bit of TAE testing to make it work though
+            spawnValue = rand.nextInt()%4;
         
-        if(spawnValue == 0){
-            up.add(new Block(getImage("resources/Up.png"),270,740));
-        }
-        
-        else if(spawnValue == 1){
-            down.add(new Block(getImage("resources/Down.png"),270,-100));
-        }
-        
-        else if(spawnValue == 2){
-            right.add(new Block(getImage("resources/Right.png"),-100,270));
-        }
-        
-        else if(spawnValue == 3){
-            left.add(new Block(getImage("resources/Left.png"),740,270));
+            if(spawnValue == 0){
+                up.add(new Block(getImage("resources/Up.png"),270,740));
+            }else if(spawnValue == 1){
+                down.add(new Block(getImage("resources/Down.png"),270,-100));
+            }else if(spawnValue == 2){
+                right.add(new Block(getImage("resources/Right.png"),-100,270));
+            }else if(spawnValue == 3){
+                left.add(new Block(getImage("resources/Left.png"),740,270));
+            }
         }
     }
     
@@ -92,30 +90,34 @@ public class MainGame extends GameObject{
         for(int ctr = 0; ctr < up.size(); ctr++){
             up.get(ctr).setY(up.get(ctr).getY() - 0.1*dimension);
         }
-        
         for(int ctr = 0; ctr < down.size(); ctr++){
             down.get(ctr).setY(down.get(ctr).getY() + 0.1*dimension);
         }
-        
         for(int ctr = 0; ctr < left.size(); ctr++){
             left.get(ctr).setX(left.get(ctr).getX() - 0.1*dimension);
         }
-        
         for(int ctr = 0; ctr < right.size(); ctr++){
             right.get(ctr).setX(right.get(ctr).getX() + 0.1*dimension);
         }
+    }
+    
+    public void checkUserInput(){
+        if (keyPressed(KeyEvent.VK_UP)){
+            ;
+        }else if(keyPressed(KeyEvent.VK_DOWN)){
+            
+        }else if(keyPressed(KeyEvent.VK_LEFT)){
+            
+        }else if(keyPressed(KeyEvent.VK_RIGHT)){
+            
+        }
+    }
+    
+    private void removeInstance(){
         
     }
     
-    /*public void movement(int num){
-        if(num == 0 && down.getY()!= 640){
-            down.setY(down.getY() + .05*dimension);
-        }else if(num ==1 && up.getY()!= 0){
-            up.setY(up.getY() - .05*dimension);
-        }else if(num ==2 && left.getX()!= 0){
-            left.setX(left.getX() - .05*dimension);
-        }else if(num ==3 && right.getX()!= 640){
-            right.setY(right.getX() + .05*dimension);
-        }
-    }*/  
+    private void checkBoundary(){
+        
+    }
 }
