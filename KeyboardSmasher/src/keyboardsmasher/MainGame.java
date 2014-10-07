@@ -43,6 +43,8 @@ public class MainGame extends GameObject{
         //if(System.currentTimeMillis() % 20 == 0) //Determines how fast the arrows show
             Generate();
         
+        Movement();
+        
     }
 
     @Override
@@ -71,40 +73,36 @@ public class MainGame extends GameObject{
         
         if(spawnValue == 0){
             up.add(new Block(getImage("resources/Up.png"),270,740));
-            Movement();
         }
         
         else if(spawnValue == 1){
             down.add(new Block(getImage("resources/Down.png"),270,-100));
-            Movement();
         }
         
         else if(spawnValue == 2){
             right.add(new Block(getImage("resources/Right.png"),-100,270));
-            Movement();
         }
         
         else if(spawnValue == 3){
             left.add(new Block(getImage("resources/Left.png"),740,270));
-            Movement();
         }
     }
     
     public void Movement(){
         for(int ctr = 0; ctr < up.size(); ctr++){
-            up.get(ctr).setY(up.get(ctr).getY() - 0.5*dimension);
+            up.get(ctr).setY(up.get(ctr).getY() - 0.3*dimension);
         }
         
         for(int ctr = 0; ctr < down.size(); ctr++){
-            down.get(ctr).setY(down.get(ctr).getY() + 0.5*dimension);
+            down.get(ctr).setY(down.get(ctr).getY() + 0.3*dimension);
         }
         
         for(int ctr = 0; ctr < left.size(); ctr++){
-            left.get(ctr).setX(left.get(ctr).getX() - 0.5*dimension);
+            left.get(ctr).setX(left.get(ctr).getX() - 0.3*dimension);
         }
         
         for(int ctr = 0; ctr < right.size(); ctr++){
-            right.get(ctr).setX(right.get(ctr).getX() + 0.5*dimension);
+            right.get(ctr).setX(right.get(ctr).getX() + 0.3*dimension);
         }
         
     }
