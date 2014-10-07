@@ -40,7 +40,7 @@ public class MainGame extends GameObject{
 
     @Override
     public void update(long l) {
-        if(System.currentTimeMillis() % 20 == 0) //Determines how fast the arrows show
+        //if(System.currentTimeMillis() % 20 == 0) //Determines how fast the arrows show
             Generate();
         
         Movement();
