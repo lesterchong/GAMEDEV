@@ -40,7 +40,7 @@ public class MainGame extends GameObject{
 
     @Override
     public void update(long l) {
-        //if(System.currentTimeMillis() % 20 == 0) //Determines how fast the arrows show
+        if(System.currentTimeMillis() % 20 == 0) //Determines how fast the arrows show
             Generate();
         
         Movement();
@@ -90,19 +90,19 @@ public class MainGame extends GameObject{
     
     public void Movement(){
         for(int ctr = 0; ctr < up.size(); ctr++){
-            up.get(ctr).setY(up.get(ctr).getY() - 0.3*dimension);
+            up.get(ctr).setY(up.get(ctr).getY() - 0.1*dimension);
         }
         
         for(int ctr = 0; ctr < down.size(); ctr++){
-            down.get(ctr).setY(down.get(ctr).getY() + 0.3*dimension);
+            down.get(ctr).setY(down.get(ctr).getY() + 0.1*dimension);
         }
         
         for(int ctr = 0; ctr < left.size(); ctr++){
-            left.get(ctr).setX(left.get(ctr).getX() - 0.3*dimension);
+            left.get(ctr).setX(left.get(ctr).getX() - 0.1*dimension);
         }
         
         for(int ctr = 0; ctr < right.size(); ctr++){
-            right.get(ctr).setX(right.get(ctr).getX() + 0.3*dimension);
+            right.get(ctr).setX(right.get(ctr).getX() + 0.1*dimension);
         }
         
     }
