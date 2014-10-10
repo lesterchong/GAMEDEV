@@ -11,7 +11,8 @@ import com.golden.gamedev.GameObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.Random;
 import snakegame.Block;
 
@@ -21,12 +22,12 @@ import snakegame.Block;
  */
 public class MainGame extends GameObject{
 
-    private int spawnValue;
+    private int spawnValue, score;
     private Block main;
-    private ArrayList <Block> up = new ArrayList<>();
-    private ArrayList <Block> down = new ArrayList<>();
-    private ArrayList <Block> left = new ArrayList<>();
-    private ArrayList <Block> right = new ArrayList<>();
+    private LinkedList <Block> up = new LinkedList<>();
+    private LinkedList <Block> down = new LinkedList<>();
+    private LinkedList <Block> left = new LinkedList<>();
+    private LinkedList <Block> right = new LinkedList<>();
     private double dimension;
     private Random rand;
     
@@ -46,7 +47,7 @@ public class MainGame extends GameObject{
     public void update(long l) {
         Generate();
         Movement();
-        
+        checkUserInput();
     }
 
     @Override
@@ -88,36 +89,80 @@ public class MainGame extends GameObject{
     
     public void Movement(){
         for(int ctr = 0; ctr < up.size(); ctr++){
-            up.get(ctr).setY(up.get(ctr).getY() - 0.1*dimension);
+            up.get(ctr).setY(up.get(ctr).getY() - 0.05*dimension);
         }
         for(int ctr = 0; ctr < down.size(); ctr++){
-            down.get(ctr).setY(down.get(ctr).getY() + 0.1*dimension);
+            down.get(ctr).setY(down.get(ctr).getY() + 0.05*dimension);
         }
         for(int ctr = 0; ctr < left.size(); ctr++){
-            left.get(ctr).setX(left.get(ctr).getX() - 0.1*dimension);
+            left.get(ctr).setX(left.get(ctr).getX() - 0.05*dimension);
         }
         for(int ctr = 0; ctr < right.size(); ctr++){
-            right.get(ctr).setX(right.get(ctr).getX() + 0.1*dimension);
+            right.get(ctr).setX(right.get(ctr).getX() + 0.05*dimension);
         }
     }
     
     public void checkUserInput(){
-        if (keyPressed(KeyEvent.VK_UP)){
-            ;
-        }else if(keyPressed(KeyEvent.VK_DOWN)){
-            
-        }else if(keyPressed(KeyEvent.VK_LEFT)){
-            
-        }else if(keyPressed(KeyEvent.VK_RIGHT)){
-            
+        if(keyPressed(KeyEvent.VK_UP) && checkBoundary("up")){
+            removeInstance(up);
+            score++;
+            System.out.println(score);
+        }else if(keyPressed(KeyEvent.VK_DOWN) && checkBoundary("down")){
+            removeInstance(down);
+            score++;
+            System.out.println(score);
+        }else if(keyPressed(KeyEvent.VK_LEFT) && checkBoundary("left")){
+            removeInstance(left);
+            score++;
+            System.out.println(score);
+        }else if(keyPressed(KeyEvent.VK_RIGHT) && checkBoundary("right")){
+            removeInstance(right);
+            score++;
+            System.out.println(score);
         }
     }
     
-    private void removeInstance(){
-        
+    private void removeInstance(LinkedList<Block> list){
+        list.removeFirst();
     }
     
-    private void checkBoundary(){
+    private boolean checkBoundary(String direction){
+        Block temp;
+        Iterator itr;
         
+        if(direction.equals("up")){
+            itr = up.iterator();
+            while(itr.hasNext()){
+                temp = (Block)itr.next();
+                if(temp.getY()<=main.getY()+150 && temp.getY()>=main.getY()){
+                    return true;
+                }
+            }
+        }else if(direction.equals("down")){
+            itr = down.iterator();
+            while(itr.hasNext()){
+                temp = (Block)itr.next();
+                if(temp.getY()<=main.getY()+150 && temp.getY()>=main.getY()){
+                    return true;
+                }
+            }
+        }else if(direction.equals("left")){
+            itr = left.iterator();
+            while(itr.hasNext()){
+                temp = (Block)itr.next();
+                if(temp.getX()<=main.getX()+150 && temp.getX()>=main.getX()){
+                    return true;
+                }
+            }
+        }else if(direction.equals("right")){
+            itr = right.iterator();
+            while(itr.hasNext()){
+                temp = (Block)itr.next();
+                if(temp.getX()<=main.getX()+150 && temp.getX()>=main.getX()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
