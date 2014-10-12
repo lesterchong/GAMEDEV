@@ -11,8 +11,8 @@ import com.golden.gamedev.GameObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Random;
 import snakegame.Block;
 
@@ -21,7 +21,7 @@ import snakegame.Block;
  * @author Lester Chong
  */
 public class MainGame extends GameObject{
-
+    
     private int spawnValue, score;
     private Block main;
     private LinkedList <Block> up = new LinkedList<>();
@@ -30,7 +30,6 @@ public class MainGame extends GameObject{
     private LinkedList <Block> right = new LinkedList<>();
     private double dimension;
     private Random rand;
-    
     
     public MainGame(GameEngine ge) {
         super(ge);
